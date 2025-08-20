@@ -1,0 +1,20 @@
+<databaseChangeLog 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+	    <changeSet id="table-users-add" author="Alexei" >
+	    	    <preConditions onFail="MARK_RAN">
+	    	    	<sqlCheck expectedResult="1">
+                        select count(1)
+                         from information_schema.tables
+                        where table_schema = 'public'
+                          and table_name = 'users';
+	    	    	</sqlCheck>
+	    	    </preConditions>   
+                <sqlFile path="users-add.sql"
+                         relativeToChangelogFile="true"
+                         splitStatements="false"
+                         stripComments="false"/>   
+        </changeSet>        
+</databaseChangeLog>
