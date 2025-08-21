@@ -17,4 +17,18 @@
                          splitStatements="false"
                          stripComments="false"/>   
         </changeSet>
+        <changeSet id="books" author="Alexei">
+            <preConditions onFail="MARK_RAN">
+	    	    	<sqlCheck expectedResult="0">
+                        select count(1)
+                         from information_schema.tables
+                        where table_schema = 'public'
+                          and table_name = 'books';
+	    	    	</sqlCheck>
+	    	    </preConditions>   
+                <sqlFile path="books.sql"
+                         relativeToChangelogFile="true"
+                         splitStatements="false"
+                         stripComments="false"/>   
+        </changeSet>        
 </databaseChangeLog>
