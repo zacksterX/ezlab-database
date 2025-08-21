@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     git \
     openjdk-21-jre-headless \
     wget \
+    dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
 # Скачивание и настройка Liquibase
@@ -18,15 +19,18 @@ RUN wget -O /tmp/liquibase.tar.gz https://github.com/liquibase/liquibase/release
 # Рабочая директория
 WORKDIR /opt/ezlab-database
 
-# Копирование ВСЕХ файлов проекта (включая скрипты)
+# Копирование файлов проекта
 COPY . .
 
-# Установка прав на выполнение скриптов
-RUN chmod +x auto-update.sh read-logs.sh entrypoint.sh
+# Установка прав на выполнение и преобразование формата файлов
+RUN chmod +x *.sh && \
+    dos2unix *.sh && \
+    chmod +x /opt/ezlab-database/*.sh
 
 # Настройка Liquibase
 ENV LIQUIBASE_URL=jdbc:postgresql://localhost:5432/ezlab_dev
 ENV LIQUIBASE_USERNAME=postgres
+ENV LIQUIBASE_PASSWORD=dev
 
 # Создание директории для логов
 RUN mkdir -p /var/log/liquibase
