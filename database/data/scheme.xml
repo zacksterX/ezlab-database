@@ -16,5 +16,11 @@
                          relativeToChangelogFile="true"
                          splitStatements="false"
                          stripComments="false"/>   
-        </changeSet>        
+        </changeSet> 
+        <changeSet id="table-books-add" author="Alexei">
+                <sqlFile path="books-add.sql"
+                         relativeToChangelogFile="true"
+                         splitStatements="false"
+                         stripComments="false"/>          
+        </changeSet>       
 </databaseChangeLog>
