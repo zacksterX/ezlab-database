@@ -50,5 +50,7 @@ else
     cat liquibase.properties >> "$INIT_LOG"
 fi
 
+/opt/ezlab-database/auto-update.sh &
+
 # Ожидание завершения основного процесса
 wait
